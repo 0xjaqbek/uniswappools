@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <title>Uniswap Liquidity Pools</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.3/dist/web3.min.js"></script>
+    <script>
+        // Use MetaMask provider if available, otherwise fallback to a custom provider
+        if (window.ethereum) {
+            web3 = new Web3(window.ethereum);
+            // Request account access
+            async function requestAccount() {
+                try {
+                    await window.ethereum.request({ method: 'eth_requestAccounts' });
+                } catch (error) {
+                    console.error('User denied account access:', error);
+                }
+            }
+            // Call the function to request account access
+            requestAccount();
+        } else {
+            // Fallback to a custom provider
+            web3 = new Web3(new Web3.providers.HttpProvider('https://ethereum.publicnode.com'));
+        }
+    </script>
+  
+</head>
+<body>
+    <h1>Uniswap Liquidity Pools</h1>
+    <h2>v2 on Ethereum Mainnet</h2>
+ 
+    <label for="timeFrame">Select Time Frame:</label>
+    <select id="timeFrame">
+        <option value="3600">Last 500 blocks</option>
+        <option value="7200">Last 1500 blocks</option>
+        <option value="14400">Last 2500 blocks</option>
+        <!-- Add more options as needed -->
+    </select>
+    
+    <button id="fetchButton" >Fetch Liquidity Pools</button>
+
+<div id="blockInfo"></div>
+
+<div id="liquidityPools"></div>
+
+  <script type="module" src="client.js"></script>
+</body>
+</html>
